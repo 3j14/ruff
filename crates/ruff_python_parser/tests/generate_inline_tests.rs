@@ -287,7 +287,7 @@ fn existing_tests(dir: &Path) -> Result<HashMap<String, PathBuf>> {
 
     for file in fs::read_dir(dir)? {
         let path = file?.path();
-        if path.extension().unwrap_or_default() != "py" {
+        if !matches!(path.extension().unwrap_or_default(), "py" | "pys") {
             continue;
         }
         let name = path

@@ -132,7 +132,7 @@ fn all_submodule_names_for_package<'db>(
     ) -> bool {
         is_dir
             || (is_file
-                && matches!(extension, Some("py" | "pyi"))
+                && matches!(extension, Some("py" | "pyi" | "pys"))
                 && !matches!(basename, Some("__init__.py" | "__init__.pyi")))
     }
 

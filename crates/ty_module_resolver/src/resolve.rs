@@ -1348,6 +1348,12 @@ pub(super) fn resolve_file_module(
         module
             .with_py_extension()
             .and_then(|path| path.to_file(resolver_state))
+    });
+    // Check for additional custom extension
+    let file = file.or_else(|| {
+        module
+            .with_custom_extension("pys")
+            .and_then(|path| path.to_file(resolver_state))
     })?;
 
     // For system files, test if the path has the correct casing.

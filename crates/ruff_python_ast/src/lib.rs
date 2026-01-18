@@ -119,6 +119,7 @@ impl PySourceType {
             "py" => Self::Python,
             "pyi" => Self::Stub,
             "pyw" => Self::Python,
+            "pys" => Self::Python,
             "ipynb" => Self::Ipynb,
             _ => return None,
         };

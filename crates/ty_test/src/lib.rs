@@ -321,7 +321,7 @@ fn run_test(
             assert!(
                 matches!(
                     embedded.lang,
-                    "py" | "pyi" | "python" | "text" | "cfg" | "pth"
+                    "py" | "pyi" | "python" | "text" | "cfg" | "pth" | "pys"
                 ),
                 "Supported file types are: py (or python), pyi, text, cfg and ignore"
             );
@@ -371,7 +371,7 @@ fn run_test(
             db.write_file(&full_path, to_write).unwrap();
 
             if !(full_path.starts_with(&src_path)
-                && matches!(embedded.lang, "py" | "python" | "pyi"))
+                && matches!(embedded.lang, "py" | "python" | "pyi" | "pys"))
             {
                 // These files need to be written to the file system (above), but we don't run any checks on them.
                 return None;

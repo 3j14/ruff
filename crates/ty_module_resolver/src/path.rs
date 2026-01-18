@@ -69,8 +69,8 @@ impl ModulePath {
                 );
             } else {
                 assert!(
-                    matches!(component_extension, "pyi" | "py"),
-                    "Extension must be `py` or `pyi`; got `{component_extension}`"
+                    matches!(component_extension, "pyi" | "py" | "pys"),
+                    "Extension must be `py`, `pys`, or `pyi`; got `{component_extension}`"
                 );
             }
         }
@@ -325,6 +325,21 @@ impl ModulePath {
             relative_path: relative_path.with_extension("py"),
         })
     }
+
+    #[must_use]
+    pub(crate) fn with_custom_extension(&self, extension: impl AsRef<str>) -> Option<Self> {
+        if self.is_standard_library() {
+            return None;
+        }
+        let ModulePath {
+            search_path,
+            relative_path,
+        } = self;
+        Some(ModulePath {
+            search_path: search_path.clone(),
+            relative_path: relative_path.with_extension(extension),
+        })
+    }
 }
 
 impl PartialEq<SystemPathBuf> for ModulePath {
@@ -569,7 +584,7 @@ impl SearchPath {
         if self.is_standard_library() {
             extension == "pyi"
         } else {
-            matches!(extension, "pyi" | "py")
+            matches!(extension, "pyi" | "py" | "pys")
         }
     }
 

@@ -73,7 +73,7 @@ pub(crate) fn implicit_namespace_package(
         // Ignore non-`.py` files, which don't require an `__init__.py`.
         && PySourceType::try_from_path(path).is_some_and(PySourceType::is_py_file)
         // Ignore `.pyw` files that are also PySourceType::Python but aren't importable namespaces
-        && path.extension().is_some_and(|ext| ext == "py")
+        && path.extension().is_some_and(|ext| ext.to_str().is_some_and(|ext| matches!(ext, "py" | "pys")))
         // Ignore any files that are direct children of the project root.
         && path
             .parent()

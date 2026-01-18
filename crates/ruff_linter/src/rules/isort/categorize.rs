@@ -174,7 +174,7 @@ fn match_sources<'a>(paths: &'a [PathBuf], name: &str) -> Option<&'a Path> {
         if candidate.is_dir() {
             return Some(root);
         }
-        if ["py", "pyi"]
+        if ["py", "pyi", "pys"]
             .into_iter()
             .any(|extension| candidate.with_extension(extension).is_file())
         {
